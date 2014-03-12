@@ -1,0 +1,380 @@
+
+
+//OUTPUT MATRIX(before factor)        
+        
+        /*
+        if(true)
+        {
+            String log = "\n";
+            for(int i = 0; i < matrix.length; i++)
+            {
+                for(int j = 0; j < matrix[i].length; j++)
+                    log += matrix[i][j] + ", ";
+                log += "\n";
+                if(i + 1 == size_invalid_ns - 1)
+                    log += "------\n";
+            }
+            String desc[] = new String[matrix.length];
+            for(int i = 0; i < ns.size(); i++)
+            {
+                for(int j = 0; j < ns.get(i).size(); j++)
+                {
+                    if(ns.get(i).get(j) == 0)
+                        continue;
+                    desc[ns.get(i).get(j) - 1] = "(" + cms.get(i).get_tile().xCoord + ", " + cms.get(i).get_tile().yCoord + ", " + cms.get(i).get_tile().zCoord + ")." + j;
+                }
+            }
+            Iterator<Entry<Integer, Integer>> itr = vs.entrySet().iterator();
+            while(itr.hasNext())
+            {
+                Entry<Integer, Integer> nb = itr.next();
+                if(size_invalid_ns + nb.getValue() == 0)
+                    continue;
+                desc[size_invalid_ns + nb.getValue() - 1] = "[" + cms.get(nb.getKey()).get_tile().xCoord + ", " + cms.get(nb.getKey()).get_tile().yCoord + ", " + cms.get(nb.getKey()).get_tile().zCoord + "]";
+            }
+            for(int i = 0; i < desc.length; i++)
+            {
+                if(desc[i] == null)
+                    log += "null, ";
+                else
+                    log += desc[i] + ", ";
+            }
+            log += "\n" + cms.size() + "cms, " + cns.size() + "cns";
+            cyb2.inst.log(Level.INFO, log);
+        }
+        */
+        
+        //shift_info = linear_algebra.transform(matrix, rhs);
+        //shift_info_i = new int[shift_info.length];
+        //for(int i = 0; i < shift_info.length; i++)
+        //  shift_info_i[shift_info[i]] = i;
+
+
+
+
+
+
+
+-------
+
+
+
+
+
+
+
+
+            /*
+            Tessellator tes = Tessellator.instance;
+            common_c.color coe = new common_c.color();
+            coe.r = coe.g = coe.b = 1;
+            if(EntityRenderer.anaglyphEnable)
+                coe.anaglyph();
+            int bC = block.getMixedBrightnessForBlock(world, x, y, z);
+            int bXN = block.getMixedBrightnessForBlock(world, x - 1, y, z);
+            int bXP = block.getMixedBrightnessForBlock(world, x + 1, y, z);
+            int bYN = block.getMixedBrightnessForBlock(world, x, y - 1, z);
+            int bYP = block.getMixedBrightnessForBlock(world, x, y + 1, z);
+            int bZN = block.getMixedBrightnessForBlock(world, x, y, z - 1);
+            int bZP = block.getMixedBrightnessForBlock(world, x, y, z + 1);
+            if(Minecraft.isAmbientOcclusionEnabled())
+            {
+                ren.enableAO = true;
+                common_c.prepare_ao(ren, world, block, x, y, z);
+            }
+            else
+                ren.enableAO = false;
+            if(ren.enableAO)
+                common_c.aoYP(ren, world, block, x, y, z, bC, coe);
+            else
+            {
+                tes.setBrightness(bC);
+                tes.setColorOpaque_F(coe.r, coe.g, coe.b);
+            }
+            if(te.wire_YP)
+            {
+                ren.setRenderBounds(6. / 16., 0., 6. / 16., 10. / 16., 1., 10. / 16.);
+                ren.renderTopFace(block, x, y, z, 53);
+                if(te.wire_XN)
+                {
+                    ren.setRenderBounds(0., 0., 6. / 16., 6. / 16., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 54);
+                }
+                if(te.wire_XP)
+                {
+                    ren.setRenderBounds(10. / 16., 0., 6. / 16., 1., 10. / 16., 10. / 16.);
+                    ren.uvRotateTop = 3;
+                    ren.renderTopFace(block, x, y, z, 54);
+                    ren.uvRotateTop = 0;
+                }
+                if(te.wire_ZP)
+                {
+                    ren.setRenderBounds(6. / 16., 0., 10. / 16., 10. / 16., 10. / 16., 1.);
+                    ren.uvRotateTop = 2;
+                    ren.renderTopFace(block, x, y, z, 54);
+                    ren.uvRotateTop = 0;
+                }
+                if(te.wire_ZN)
+                {
+                    ren.setRenderBounds(6. / 16., 0., 0., 10. / 16., 10. / 16., 6. / 16.);
+                    ren.uvRotateTop = 1;
+                    ren.renderTopFace(block, x, y, z, 54);
+                    ren.uvRotateTop = 0;
+                }
+            }
+            else
+            {
+                if(!te.wire_XP && !te.wire_XN && !te.wire_ZP && !te.wire_ZN)
+                {
+                    ren.setRenderBounds(6. / 16., 0., 6. / 16., 10. / 16., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 53);
+                }
+                else if(te.wire_XP && te.wire_XN && te.wire_ZP && te.wire_ZN)
+                {
+                    ren.setRenderBounds(0., 0., 6. / 16., 1., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 52);
+                    ren.setRenderBounds(6. / 16., 0., 10. / 16., 10. / 16., 10. / 16., 1.);
+                    ren.renderTopFace(block, x, y, z, 52);
+                    ren.setRenderBounds(6. / 16., 0., 0., 10. / 16., 10. / 16., 6. / 16.);
+                    ren.renderTopFace(block, x, y, z, 52);
+                }
+                else if(te.wire_XP && te.wire_XN && !te.wire_ZP && !te.wire_ZN)
+                {
+                    ren.setRenderBounds(0., 0., 6. / 16., 1., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 50);
+                }
+                else if(!te.wire_XP && !te.wire_XN && te.wire_ZP && te.wire_ZN)
+                {
+                    ren.setRenderBounds(6. / 16., 0., 0., 10. / 16., 10. / 16., 1.);
+                    ren.uvRotateTop = 2;
+                    ren.renderTopFace(block, x, y, z, 50);
+                    ren.uvRotateTop = 0;
+                }
+                else if(te.wire_XN && !te.wire_XP && !te.wire_ZP && !te.wire_ZN)
+                {
+                    ren.setRenderBounds(0, 0., 6. / 16., 10. / 16., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 48);
+                }
+                else if(!te.wire_XN && te.wire_XP && !te.wire_ZP && !te.wire_ZN)
+                {
+                    ren.setRenderBounds(6. / 16., 0., 6. / 16., 1., 10. / 16., 10. / 16.);
+                    ren.uvRotateTop = 3;
+                    ren.renderTopFace(block, x, y, z, 48);
+                    ren.uvRotateTop = 0;
+                }
+                else if(!te.wire_XN && !te.wire_XP && !te.wire_ZP && te.wire_ZN)
+                {
+                    ren.setRenderBounds(6. / 16., 0., 0., 10. / 16., 10. / 16., 10. / 16.);
+                    ren.uvRotateTop = 1;
+                    ren.renderTopFace(block, x, y, z, 48);
+                    ren.uvRotateTop = 0;
+                }
+                else if(!te.wire_XN && !te.wire_XP && te.wire_ZP && !te.wire_ZN)
+                {
+                    ren.setRenderBounds(6. / 16., 0., 6. / 16., 10. / 16., 10. / 16., 1.);
+                    ren.uvRotateTop = 2;
+                    ren.renderTopFace(block, x, y, z, 48);
+                    ren.uvRotateTop = 0;
+                }
+                else if(te.wire_XN && te.wire_ZN && !te.wire_XP && !te.wire_ZP)
+                {
+                    ren.uvRotateTop = 1;
+                    ren.setRenderBounds(0, 0., 6. / 16., 10. / 16., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 49);
+                    ren.setRenderBounds(6. / 16., 0., 0., 10. / 16., 10. / 16., 6. / 16.);
+                    ren.renderTopFace(block, x, y, z, 49);
+                    ren.uvRotateTop = 0;
+                }
+                else if(!te.wire_XN && te.wire_ZN && te.wire_XP && !te.wire_ZP)
+                {
+                    ren.uvRotateTop = 3;
+                    ren.setRenderBounds(10. / 16., 0., 6. / 16., 1., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 49);
+                    ren.setRenderBounds(6. / 16., 0., 0., 10. / 16., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 49);
+                    ren.uvRotateTop = 0;
+                }
+                else if(!te.wire_XN && !te.wire_ZN && te.wire_XP && te.wire_ZP)
+                {
+                    ren.uvRotateTop = 2;
+                    ren.setRenderBounds(6. / 16., 0., 10. / 16., 10. / 16., 10. / 16., 1.);
+                    ren.renderTopFace(block, x, y, z, 49);
+                    ren.setRenderBounds(6. / 16., 0., 6. / 16., 1., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 49);
+                    ren.uvRotateTop = 0;
+                }
+                else if(!te.wire_ZN && te.wire_ZP && te.wire_XN && !te.wire_XP)
+                {
+                    ren.setRenderBounds(6. / 16., 0., 10. / 16., 10. / 16., 10. / 16., 1.);
+                    ren.renderTopFace(block, x, y, z, 49);
+                    ren.setRenderBounds(0, 0., 6. / 16., 10. / 16., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 49);
+                }
+                else if(!te.wire_ZN && te.wire_XN && te.wire_XP && te.wire_ZP)
+                {
+                    ren.setRenderBounds(0., 0., 6. / 16., 1., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 51);
+                    ren.setRenderBounds(6. / 16., 0., 10. / 16., 10. / 16., 10. / 16., 1.);
+                    ren.renderTopFace(block, x, y, z, 51);
+                }
+                else if(te.wire_ZN && te.wire_XN && !te.wire_XP && te.wire_ZP)
+                {
+                    ren.uvRotateTop = 1;
+                    ren.setRenderBounds(0., 0., 6. / 16., 1., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 51);
+                    ren.setRenderBounds(6. / 16., 0., 0., 10. / 16., 10. / 16., 1.);
+                    ren.renderTopFace(block, x, y, z, 51);
+                    ren.uvRotateTop = 0;
+                }
+                else if(te.wire_ZN && !te.wire_XN && te.wire_XP && te.wire_ZP)
+                {
+                    ren.uvRotateTop = 2;
+                    ren.setRenderBounds(6. / 16., 0., 0., 10. / 16., 10. / 16., 1.);
+                    ren.renderTopFace(block, x, y, z, 51);
+                    ren.setRenderBounds(10. / 16., 0., 6. / 16., 1., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 51);
+                    ren.uvRotateTop = 0;
+                }
+                else if(te.wire_ZN && te.wire_XN && te.wire_XP && !te.wire_ZP)
+                {
+                    ren.uvRotateTop = 3;
+                    ren.setRenderBounds(6. / 16., 0., 0., 10. / 16., 10. / 16., 6. / 16.);
+                    ren.renderTopFace(block, x, y, z, 51);
+                    ren.setRenderBounds(0., 0., 6. / 16., 1., 10. / 16., 10. / 16.);
+                    ren.renderTopFace(block, x, y, z, 51);
+                    ren.uvRotateTop = 0;
+                }
+            }
+            if(ren.enableAO)
+                common_c.aoXP(ren, world, block, x, y, z, bC, coe);
+            else
+            {
+                tes.setBrightness(bC);
+                tes.setColorOpaque_F(coe.r, coe.g, coe.b);
+            }
+            if(te.wire_XP)
+            {
+                ren.setRenderBounds(0., 6. / 16., 6. / 16., 1., 10. / 16., 10. / 16.);
+                ren.renderSouthFace(block, x, y, z, 53);
+                if(te.wire_ZN)
+                {
+                    ren.setRenderBounds(0., 6. / 16., 0., 10. / 16., 10. / 16., 6. / 16.);
+                    ren.renderSouthFace(block, x, y, z, 54);
+                }
+                if(te.wire_YP)
+                {
+                    ren.uvRotateSouth = 1;
+                    ren.setRenderBounds(0, 10. / 16., 6. / 16., 10. / 16., 1., 10. / 16.);
+                    ren.renderSouthFace(block, x, y, z, 54);
+                    ren.uvRotateSouth = 0;
+                }
+                if(te.wire_YN)
+                {
+                    ren.uvRotateSouth = 2;
+                    ren.setRenderBounds(0., 0., 6. / 16., 10. / 16., 6. / 16., 10. / 16.);
+                    ren.renderSouthFace(block, x, y, z, 54);
+                    ren.uvRotateSouth = 0;
+                }
+                if(te.wire_ZP)
+                {
+                    ren.uvRotateSouth = 3;
+                    ren.setRenderBounds(0., 6. / 16., 10. / 16., 10. / 16., 10. / 16., 1.);
+                    ren.renderSouthFace(block, x, y, z, 54);
+                    ren.uvRotateSouth = 0;
+                }
+            }
+            else
+            {
+                if(!te.wire_YP && !te.wire_YN && !te.wire_ZP && !te.wire_ZN)
+                {
+                    ren.setRenderBounds(0., 6. / 16., 6. / 16., 10. / 16., 10. / 16., 10. / 16.);
+                    ren.renderSouthFace(block, x, y, z, 53);
+                }
+                else if(te.wire_YP && te.wire_YN && !te.wire_ZP && !te.wire_ZN)
+                {
+                    ren.uvRotateSouth = 1;
+                    ren.setRenderBounds(0., 0., 6. / 16., 10. / 16., 1., 10. / 16.);
+                    ren.renderSouthFace(block, x, y, z, 50);
+                    ren.uvRotateSouth = 0;
+                }
+                else if(te.wire_ZP && te.wire_ZN && !te.wire_YP && !te.wire_YN)
+                {
+                    ren.setRenderBounds(0., 6. / 16., 0., 10. / 16., 10. / 16., 1.);
+                    ren.renderSouthFace(block, x, y, z, 50);
+                }
+                else if(te.wire_ZN && !te.wire_ZP && !te.wire_YN && !te.wire_YP)
+                {
+                    ren.setRenderBounds(0., 6. / 16., 0., 10. / 16., 10. / 16., 10. / 16.);
+                    ren.renderSouthFace(block, x, y, z, 48);
+                }
+                else if(!te.wire_ZN && !te.wire_ZP && te.wire_YN && !te.wire_YP)
+                {
+                    ren.uvRotateSouth = 2;
+                    ren.setRenderBounds(0., 0., 6. / 16., 10. / 16., 10. / 16., 10. / 16.);
+                    ren.renderSouthFace(block, x, y, z, 48);
+                    ren.uvRotateSouth = 0;
+                }
+                else if(!te.wire_ZN && !te.wire_ZP && !te.wire_YN && te.wire_YP)
+                {
+                    ren.uvRotateSouth = 1;
+                    ren.setRenderBounds(0., 6. / 16., 6. / 16., 10. / 16., 1., 10. / 16.);
+                    ren.renderSouthFace(block, x, y, z, 48);
+                    ren.uvRotateSouth = 0;
+                }
+                else if(!te.wire_ZN && te.wire_ZP && !te.wire_YN && !te.wire_YP)
+                {
+                    ren.uvRotateSouth = 3;
+                    ren.setRenderBounds(0., 6. / 16., 6. / 16., 10. / 16., 10. / 16., 1.);
+                    ren.renderSouthFace(block, x, y, z, 48);
+                    ren.uvRotateSouth = 0;
+                }
+                else if(te.wire_ZN && te.wire_YP && !te.wire_ZP && !te.wire_YN)
+                {
+                    ren.uvRotateSouth = 3;
+                    ren.setRenderBounds(0., 0, 0, 10. / 16., 1, 1);
+                    
+                    //ren.setRenderBounds(0., 6. / 16., 0., 10. / 16., 10. / 16., 10. / 16.);
+                    //ren.renderSouthFace(block, x, y, z, 49);
+                    //ren.setRenderBounds(0., 10. / 16., 6. / 16., 10. / 16., 1., 10. / 16.);
+                    
+                    ren.renderSouthFace(block, x, y, z, 49);
+                    ren.uvRotateSouth = 0;
+                }
+                else if(te.wire_ZN && !te.wire_YP && !te.wire_ZP && te.wire_YN)
+                {
+                    ren.uvRotateSouth = 2;
+                    ren.setRenderBounds(0., 0, 0, 10. / 16., 1, 1);
+                    
+                    //ren.setRenderBounds(0., 6. / 16., 0., 10. / 16., 10. / 16., 10. / 16.);
+                    //ren.renderSouthFace(block, x, y, z, 49);
+                    //ren.setRenderBounds(0., 0., 6. / 16., 10. / 16., 6. / 16., 10. / 16.);
+                    
+                    ren.renderSouthFace(block, x, y, z, 49);
+                    ren.uvRotateSouth = 0;
+                }
+                else if(!te.wire_ZN && te.wire_YP && te.wire_ZP && !te.wire_YN)
+                {
+                    ren.uvRotateSouth = 1;
+                    ren.setRenderBounds(0., 0, 0, 10. / 16., 1, 1);
+                    
+                    //ren.setRenderBounds(0., 6. / 16., 6. / 16., 10. / 16., 1., 10. / 16.);
+                    //ren.renderSouthFace(block, x, y, z, 49);
+                    //ren.setRenderBounds(0., 6. / 16., 10. / 16., 10. / 16., 10. / 16., 1.);
+                    
+                    ren.renderSouthFace(block, x, y, z, 49);
+                    ren.uvRotateSouth = 0;
+                }
+                else if(!te.wire_ZN && !te.wire_YP && te.wire_ZP && te.wire_YN)
+                {
+                    ren.setRenderBounds(0., 0, 0, 10. / 16., 1, 1);
+                    
+                    //ren.setRenderBounds(0., 6. / 16., 6. / 16., 10. / 16., 10. / 16., 1.);
+                    //ren.renderSouthFace(block, x, y, z, 49);
+                    //ren.setRenderBounds(0., 0., 6. / 16., 10. / 16., 6. / 16., 10. / 16.);
+                    
+                    ren.renderSouthFace(block, x, y, z, 49);
+                }
+            }
+            return true;
+            */
+            //TODO: complete ^ and use it instead of v
